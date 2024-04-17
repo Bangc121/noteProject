@@ -1,13 +1,30 @@
+import { getProduct, getProducts } from "@/service/products";
+
+import NotFound from "@/app/not-found";
+
+export const revalidate = 1;
+
 type Props = {
   params: {
     slug: string;
   };
 };
-export default function PantsPage({ params }: Props) {
-  return <h1>{params.slug} 제품 설명 페이지</h1>;
+export function generateMetadata({ params }: Props) {
+  return {
+    title: `${params.slug} 제품 설명`,
+  };
+}
+export default async function PantsPage({ params: { slug } }: Props) {
+  const product = await getProduct(slug);
+  if (!product) {
+    NotFound();
+  }
+  // 서버 파일에 있는 데이터중 해당 제품의 정보를 읽어와서 보여줌
+  return <h1>{product?.name} 제품 설명 페이지</h1>;
 }
 
-export function generateStaticParams() {
-  const products = ["pants", "shirts", "shoes"];
-  return products.map((slug) => ({ params: { slug } }));
+export async function generateStaticParams() {
+  // 모든 제품의 페이지들을 미리 만들어 둘 수 있게 해줄거임 (SSG)
+  const products = await getProducts();
+  return products.map((product) => ({ sulg: product.id }));
 }
