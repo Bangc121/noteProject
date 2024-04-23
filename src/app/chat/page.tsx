@@ -12,7 +12,7 @@ type ChatComponentProps = {
   messages: Message[];
 };
 
-type Message = {
+export type Message = {
   id: string;
   text: string;
   time: string;
