@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import Link from "next/link";
+import LogoutButton from "./components/LogoutButton";
 import type { Metadata } from "next";
 import { Nanum_Gothic } from "next/font/google";
 import { Open_Sans } from "next/font/google";
@@ -28,10 +29,11 @@ export default function RootLayout({
         <header className={styles.header}>
           <h1 className={gothic.className}>Demo Note</h1>
           <nav className={styles.nav}>
-            <Link href="/">Home</Link>
+            <Link href="/home">Home</Link>
             <Link href="/contact">Contact</Link>
-            <Link href="/products">products</Link>
+            <Link href="/products">Products</Link>
             <Link href="/chat">Chat</Link>
+            <LogoutButton />
           </nav>
         </header>
         {children}

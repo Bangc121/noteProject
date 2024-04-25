@@ -1,45 +1,23 @@
 "use client";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
-import Counter from "./components/Counter";
-import Image from "next/image";
 import os from "os";
-import styles from "./page.module.css";
-
-type LoginData = {
-  username: string;
-};
+import { redirect } from "next/navigation";
 
 export default function Home() {
   console.log(os.hostname());
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<LoginData>();
-  const onSubmit: SubmitHandler<LoginData> = (data) => console.log(data);
 
-  return (
-    <>
-      <h1>Home</h1>
-      <Image
-        src={"https://images.unsplash.com/photo-1441986300917-64674bd600d8"}
-        alt="Shop"
-        height={400}
-        width={400}
-      />
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          defaultValue="username"
-          {...register("username", { required: true })}
-        />
-        {errors.username && <span>This field is required</span>}
-        <input type="submit" />
-      </form> */}
-    </>
-  );
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const username = localStorage.getItem("username");
+      if (username) {
+        redirect("/home");
+      } else {
+        redirect("/login");
+      }
+    }
+  }, []);
 }
 
 // 앱폴더는 서버 컴포넌트, 브라우저에서 할 수 있는 일들은 서버컴포넌트에서 불가능

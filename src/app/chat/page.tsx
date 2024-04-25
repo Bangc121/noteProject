@@ -36,12 +36,12 @@ export default function LobbyPage() {
     fetchGroups();
   }, []);
 
-  useEffect(() => {
-    socket.on("roomsList", (rooms) => {
-      console.log("rooms", rooms);
-      setRooms(rooms);
-    });
-  }, [socket]);
+  // useEffect(() => {
+  //   socket.on("roomsList", (rooms) => {
+  //     console.log("rooms", rooms);
+  //     setRooms(rooms);
+  //   });
+  // }, [socket]);
 
   return (
     <>
